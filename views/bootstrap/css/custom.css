@@ -1,0 +1,5 @@
+.bottom-rule {
+    border-bottom: 1px solid lightgray;
+}
+
+.top-buffer { margin-top:20px; }
