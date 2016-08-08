@@ -101,17 +101,7 @@ class Profile
 	public function store()
 	{
 		try {
-			$query = "UPDATE `tbl_profiles`   
-				   SET `first_name` = :firstname,
-				       `last_name` = :surname,
-				       `father_name` = :fname,
-				       `mother_name` = :mname,
-				       `gender` = :gender,
-				       `birth_date` = :birth_date,
-				       `nationality` = :nationality,
-				       `religion` = :religion,
-				       `occupation` = :occupation
-				 WHERE `user_id` = :user_id";
+			$query = "UPDATE `tbl_profiles` SET `first_name` = :firstname,`last_name` = :surname, `father_name` = :fname, `mother_name` = :mname, `gender` = :gender, `birth_date` = :birth_date, `nationality` = :nationality, `religion` = :religion, `occupation` = :occupation WHERE `tbl_profiles`.`user_id` = :user_id ";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute(array(
 			':firstname' => $this->first_name,
@@ -125,6 +115,7 @@ class Profile
 			':occupation' => $this->occupation,
 			':user_id' => $this->id
 			));
+		$_SESSION['Message'] = 'Data has been successfully inserted';
 		header('location:profile.php');
 } catch(PDOException $e) {
   echo 'Error: ' . $e->getMessage();

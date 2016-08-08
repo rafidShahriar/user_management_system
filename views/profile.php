@@ -14,7 +14,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
 
-        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
@@ -71,6 +71,19 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     <!-- Profile Edit form -->
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                <?php if (isset($_SESSION['Message'])) { ?>
+                <div class="alert alert-success">
+                    <strong>
+                        <?php echo $_SESSION['Message'];
+                        unset($_SESSION['Message']);
+                        ?>
+                    </strong>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="row">
         <div class="well well-sm"><strong><p class="text-center">Profile Edit Page</p></strong></div>
             <form role="form" action="profile_process.php" method="post">
                 <fieldset>
@@ -117,7 +130,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                         <div class="col-sm-6">
                             <div class="form-group"> <!-- Date input -->
                                 <label class="control-label" for="date">Date</label>
-                                <input class="form-control" id="date" name="birth_date" placeholder="MM/DD/YYY" type="text"/>
+                                <input class="form-control" id="date" name="birth_date" placeholder="YYYY-MM-DD" type="text"/>
                             </div>
                         </div>
                     </div>
