@@ -1,5 +1,10 @@
 <?php
 session_start();
+include_once '../vendor/autoload.php';
+use App\registration\Profile;
+
+$obj = new Profile();
+$obj->show();
 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     ?>
 
@@ -19,55 +24,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     </head>
     <body>
 
-    <div class="container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="dashboard.php">Dashboard <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="profile.php"> Profile </a></li>
-                        <li class="dropdown">
-
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                <?php
-                                echo ucfirst($_SESSION['user']['username']);
-                                ?>
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="logout.php">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-    </div>
+    <?php include_once 'includes/dashboard_menu.php'; ?>
     <!-- Profile Edit form -->
     <div class="container">
         <div class="row">
@@ -92,13 +49,15 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                         <div class='col-sm-6'>
                             <div class='form-group'>
                                 <label for="user_firstname">First name</label>
-                                <input class="form-control" id="user_firstname" name="first_name" required="true" size="30" type="text" />
+                                <input class="form-control" id="user_firstname" name="first_name" value="<?php if (!empty($user['first_name'])) {
+                                    echo $user['first_name']; } ?>" required="true" size="30" type="text" />
                             </div>
                         </div>
                         <div class='col-sm-6'>
                             <div class='form-group'>
                                 <label for="user_lastname">Last name</label>
-                                <input class="form-control" id="user_lastname" name="last_name" required="true" size="30" type="text" />
+                                <input class="form-control" id="user_lastname" name="last_name" value="<?php if (!empty($user['last_name'])) {
+                                    echo $user['last_name']; } ?>" required="true" size="30" type="text" />
                             </div>
                         </div>
                     </div>
@@ -130,7 +89,7 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
                         <div class="col-sm-6">
                             <div class="form-group"> <!-- Date input -->
                                 <label class="control-label" for="date">Date</label>
-                                <input class="form-control" id="date" name="birth_date" placeholder="YYYY-MM-DD" type="text"/>
+                                <input class="form-control" id="date" name="birth_date" placeholder="YYYY-MM-DD" type="date"/>
                             </div>
                         </div>
                     </div>

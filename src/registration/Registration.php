@@ -121,7 +121,7 @@ class Registration
 				header('location:login.php');
 			} else {
 				$_SESSION['user'] = $user;
-				header('location:dashboard.php');
+				header('location:index.php');
 			}
 			
 		} else {

@@ -38,7 +38,10 @@ class Profile
 	
 	public function __construct()
 	{
-		session_start();
+	    if(!isset($_SESSION)) 
+	    { 
+	        session_start(); 
+	    }
 		$this->conn = new PDO('mysql:host=localhost;dbname=project_user_management', $this->dbuser, $this->dbpass);
 	}
 
@@ -120,6 +123,23 @@ class Profile
 } catch(PDOException $e) {
   echo 'Error: ' . $e->getMessage();
 }
+	}
+
+	public function index()
+	{
+		$query = "SELECT * FROM `tbl_profiles`";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+	public function show()
+	{
+		$query = "SELECT * FROM `tbl_profiles` WHERE `user_id` = ". $_SESSION['user']['id'];
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$user = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $user;
 	}
 }
 
